@@ -36,9 +36,9 @@ challengeOne = [(x, y, z)
                                    avgByStatePerWeek['percentage_of_current_healthcare_personnel_who_received_a_completed_covid_19_vaccination_at_any_time'])
                 if z > float(80)]
 
-with open('C:/Users/jerem/Desktop/Project0/Challenge_One.csv', 'w', newline='') as myFile:
-    wr = csv.writer(myFile)
-    wr.writerows(challengeOne)
+challengeOne = pd.DataFrame(challengeOne, columns = ['week_ending', 'provider_state',
+                                                     'percentage_of_current_healthcare_personnel_who_received_a_completed_covid_19_vaccination_at_any_time'])
+challengeOne.to_csv('C:/Users/jerem/Desktop/Project0/Challenge_One.csv', index=False)
 #           ***Challenge One***
 
 
@@ -48,7 +48,7 @@ df2['start_of_streak'] = df2['federal_provider_number'].ne(df2['federal_provider
                          | df2['residents_weekly_confirmed_covid_19'].ne('0')
 df2['streak_id'] = df2['start_of_streak'].cumsum()
 df2['longest_streak'] = df2.groupby(['streak_id']).cumcount() + 1
-print(df2['longest_streak'])
+# print(df2['longest_streak'])
 
 challengeTwo = df2.groupby(['federal_provider_number'], as_index=False)['longest_streak'].max()
 
